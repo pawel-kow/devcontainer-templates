@@ -1,16 +1,32 @@
-// More info: https://containers.dev/implementors/json_reference/
 {
-	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-18-bullseye",
-	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
-	},
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"mads-hartmann.bash-ide-vscode",
-				"dbaeumer.vscode-eslint"
-			]
-		}
-	},
-	"postCreateCommand": "npm install -g @devcontainers/cli"
+        "name": "Python 3 + Node.js",
+        "image": "mcr.microsoft.com/devcontainers/python:3-3.14-bookworm",
+        "features": {
+                "ghcr.io/devcontainers/features/node:1": {
+                        "version": "lts"
+                },
+                "ghcr.io/devcontainers/features/github-cli:1": {},
+                "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+        },
+        "customizations": {
+                "vscode": {
+                        "extensions": [
+                                "Anthropic.claude-code",
+                                "dbaeumer.vscode-eslint",
+                                "esbenp.prettier-vscode",
+								"mads-hartmann.bash-ide-vscode"
+                        ]
+                }
+        },
+        "mounts": [
+                "source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+                "source=user-config-${devcontainerId},target=/home/vscode/.config,type=volume",
+        ],
+        "remoteUser": "vscode",
+        "containerEnv": {
+                "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+        },
+		"postCreateCommand": "npm install -g @devcontainers/cli",
+        // re-own the mount on every start to keep it writable for the remote user.
+        "postStartCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.config"
 }

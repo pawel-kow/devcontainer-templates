@@ -1,0 +1,45 @@
+{
+    "id": "python-node-gh-claude",
+    "version": "1.0.0",
+    "name": "Python + Node.js + GitHub CLI + Claude Code",
+    "description": "Python and Node.js dev container with GitHub CLI, Docker-in-Docker and Claude Code (CLI and VS Code extension) with persistent configuration",
+    "documentationURL": "https://github.com/pawel-kow/devcontainer-templates/tree/main/src/python-node-gh-claude",
+    "licenseURL": "https://github.com/pawel-kow/devcontainer-templates/blob/main/LICENSE",
+    "options": {
+        "pythonVersion": {
+            "type": "string",
+            "description": "Python version:",
+            "proposals": [
+                "3.14",
+                "3.13",
+                "3.12",
+                "3.11"
+            ],
+            "default": "3.14"
+        },
+        "imageVariant": {
+            "type": "string",
+            "description": "Debian version:",
+            "proposals": [
+                "bookworm",
+                "trixie",
+                "bullseye"
+            ],
+            "default": "bookworm"
+        },
+        "nodeVersion": {
+            "type": "string",
+            "description": "Node.js version (lts, latest, or a version number):",
+            "proposals": [
+                "lts",
+                "latest",
+                "22",
+                "20"
+            ],
+            "default": "lts"
+        }
+    },
+    "platforms": [
+        "Any"
+    ]
+}

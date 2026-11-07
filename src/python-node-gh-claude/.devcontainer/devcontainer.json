@@ -1,0 +1,31 @@
+{
+	"name": "Python + Node.js + GitHub CLI + Claude Code",
+	"image": "mcr.microsoft.com/devcontainers/python:3-${templateOption:pythonVersion}-${templateOption:imageVariant}",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "${templateOption:nodeVersion}"
+		},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+		"ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"Anthropic.claude-code",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode"
+			]
+		}
+	},
+	"mounts": [
+		"source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+		"source=user-config-${devcontainerId},target=/home/vscode/.config,type=volume"
+	],
+	"remoteUser": "vscode",
+	"containerEnv": {
+		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+	},
+	// Re-own the volumes on every start so they stay writable for the remote user.
+	"postStartCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.config"
+}
